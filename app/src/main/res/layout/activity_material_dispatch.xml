@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MaterialDispatchActivity">
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Material Dispatch"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Date"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView39"
+        app:layout_constraintEnd_toStartOf="@+id/dateFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+    <EditText
+        android:id="@+id/dateFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/timeFieldmd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView37"
+        app:layout_constraintTop_toBottomOf="@+id/orderNoFieldmd" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Order No."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView37"
+        app:layout_constraintEnd_toStartOf="@+id/orderNoFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+    <EditText
+        android:id="@+id/timeFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/netWeightFieldmd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView39"
+        app:layout_constraintTop_toBottomOf="@+id/dateFieldmd" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Time"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView40"
+        app:layout_constraintEnd_toStartOf="@+id/timeFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Net Weight"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView41"
+        app:layout_constraintEnd_toStartOf="@+id/netWeightFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    <EditText
+        android:id="@+id/netWeightFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/apmBillNoFieldmd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView40"
+        app:layout_constraintTop_toBottomOf="@+id/timeFieldmd" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="APM Bill No."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView42"
+        app:layout_constraintEnd_toStartOf="@+id/apmBillNoFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+    <EditText
+        android:id="@+id/apmBillNoFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/vehicleNumberFieldmd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView41"
+        app:layout_constraintTop_toBottomOf="@+id/netWeightFieldmd" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Vehicle Number"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/finishBtn"
+        app:layout_constraintEnd_toStartOf="@+id/vehicleNumberFieldmd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+    <EditText
+        android:id="@+id/vehicleNumberFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/finishBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView42"
+        app:layout_constraintTop_toBottomOf="@+id/apmBillNoFieldmd" />
+
+    <EditText
+        android:id="@+id/orderNoFieldmd"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        app:layout_constraintBottom_toTopOf="@+id/dateFieldmd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView38"
+        app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+    <Button
+        android:id="@+id/finishBtn"
+        android:layout_width="113dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="44dp"
+        android:text="Finish"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

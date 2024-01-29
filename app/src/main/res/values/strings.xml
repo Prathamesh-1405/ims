@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Inventory Management</string>
+    <string-array name="stateSpinner">
+        <item>Maharashtra</item>
+        <item>Assam</item>
+        <!-- Add more options as needed -->
+    </string-array>
+
+    <string-array name="companyInSezSpinner">
+        <item>Yes</item>
+        <item>No</item>
+        <!-- Add more options as needed -->
+    </string-array>
+
+    <string-array name="companyTypeSpinner">
+        <item>Supplier</item>
+        <item>Customer</item>
+        <!-- Add more options as needed -->
+    </string-array>
+
+    <string-array name="supplierTypeSpinner">
+        <item>Our </item>
+        <item>Others</item>
+        <!-- Add more options as needed -->
+    </string-array>
+</resources>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2_scm"
+    android:backgroundTint="@color/white"
+    tools:context=".RawMaterialEntryActivity">
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Raw Material Entry"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Company Name"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView26"
+        app:layout_constraintEnd_toStartOf="@+id/companyNameFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Challan No."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView27"
+        app:layout_constraintEnd_toStartOf="@+id/challanNoFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Type"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView28"
+        app:layout_constraintEnd_toStartOf="@+id/typeFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="APM Challan No."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView29"
+        app:layout_constraintEnd_toStartOf="@+id/apmChallanNo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Size"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView30"
+        app:layout_constraintEnd_toStartOf="@+id/sizeFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Quantity"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView31"
+        app:layout_constraintEnd_toStartOf="@+id/quantityFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="For"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView32"
+        app:layout_constraintEnd_toStartOf="@+id/forFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Cutting Size"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView33"
+        app:layout_constraintEnd_toStartOf="@+id/cuttingSizeFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Cutting Weight"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView34"
+        app:layout_constraintEnd_toStartOf="@+id/cuttingWeightFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Order No."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView35"
+        app:layout_constraintEnd_toStartOf="@+id/orderNoFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:text="Order Size"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/finishBtn"
+        app:layout_constraintEnd_toStartOf="@+id/orderSizeFieldRm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+    <Button
+        android:id="@+id/finishBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Finish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/orderNoFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/orderSizeFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView34"
+        app:layout_constraintTop_toBottomOf="@+id/cuttingWeightFieldRm" />
+
+    <Spinner
+        android:id="@+id/forFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/cuttingSizeFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/quantityFieldRm" />
+
+    <Spinner
+        android:id="@+id/typeFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/apmChallanNo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/challanNoFieldRm" />
+
+    <Spinner
+        android:id="@+id/companyNameFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/challanNoFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <EditText
+        android:id="@+id/challanNoFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/typeFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/companyNameFieldRm" />
+
+    <EditText
+        android:id="@+id/apmChallanNo"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/sizeFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView28"
+        app:layout_constraintTop_toBottomOf="@+id/typeFieldRm" />
+
+    <EditText
+        android:id="@+id/sizeFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/quantityFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/apmChallanNo" />
+
+    <EditText
+        android:id="@+id/quantityFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/forFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView30"
+        app:layout_constraintTop_toBottomOf="@+id/sizeFieldRm" />
+
+    <EditText
+        android:id="@+id/cuttingSizeFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/cuttingWeightFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView32"
+        app:layout_constraintTop_toBottomOf="@+id/forFieldRm" />
+
+    <EditText
+        android:id="@+id/cuttingWeightFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/orderNoFieldRm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView33"
+        app:layout_constraintTop_toBottomOf="@+id/cuttingSizeFieldRm" />
+
+    <EditText
+        android:id="@+id/orderSizeFieldRm"
+        android:layout_width="165dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/finishBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView35"
+        app:layout_constraintTop_toBottomOf="@+id/orderNoFieldRm" />
+</androidx.constraintlayout.widget.ConstraintLayout>
