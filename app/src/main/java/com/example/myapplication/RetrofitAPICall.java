@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 public interface RetrofitAPICall {
-    String URL_BASE = "http://34.229.153.132:5000/";
+    String URL_BASE = "http://54.204.188.232:5000/";
 
     @Headers({"Content-Type: application/json","Accept: application/json","source-name: streamlining-inventory-management"})
     @POST("add-company")

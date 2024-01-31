@@ -5,6 +5,7 @@ public class SearchResult {
     // TODO: 2018-07-13 remove initialization later 
     public int _id = 17;
     public String name;
+
     public Double quantity, price;
 
     public SearchResult(int id, String name, Double quanity, Double price){

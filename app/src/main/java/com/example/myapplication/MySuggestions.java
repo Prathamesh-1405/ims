@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
-import com.example.gerin.inventory.Search.SearchResult;
+import com.example.myapplication.Search.SearchResult;
+import com.example.myapplication.Search.SearchResult;
 
 import java.util.List;
 

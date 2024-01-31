@@ -22,6 +22,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onClickNewOrder(View view) {
-        startActivity(new Intent(HomeActivity.this,PurchaseActivity.class));
+        startActivity(new Intent(HomeActivity.this,CatalogActivity.class));
     }
 }

@@ -94,6 +94,22 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".CatalogActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".EditorActivity"
+            android:parentActivityName=".CatalogActivity" />
+        <activity
+            android:name=".ItemActivity"
+            android:parentActivityName=".CatalogActivity"
+            android:theme="@style/noTitle" />
+
+        <provider
+            android:name=".data.ItemProvider"
+            android:authorities="com.example.myapplication"
+            android:exported="false" />
     </application>
 
 </manifest>

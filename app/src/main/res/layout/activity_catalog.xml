@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,7 +64,7 @@
         </RelativeLayout>
 
         <!-- FAB -->
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/catalog_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,6 +79,7 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginBottom="43dp"
             android:clickable="true"
+            android:onClick="onClickAddButton"
             android:tint="@color/white"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end"
@@ -121,4 +122,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

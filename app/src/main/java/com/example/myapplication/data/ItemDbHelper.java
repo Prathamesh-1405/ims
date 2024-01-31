@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
-import com.example.gerin.inventory.Search.SearchResult;
-import com.example.gerin.inventory.data.ItemContract.ItemEntry;
+import com.example.myapplication.Search.SearchResult;
+import com.example.myapplication.data.ItemContract.ItemEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,34 +78,75 @@ public class ItemDbHelper extends SQLiteOpenHelper{
     }
 
     // Function to get the search results
-    public List<SearchResult> getResult(){
-
-        // need to get all results but show only 5 somehow ...
-        String sortOrder = "ROWID LIMIT 5";
-
+    // Function to get the search results
+    public List<SearchResult> getResult() {
         String[] projection = {
                 ItemContract.ItemEntry._ID,
                 ItemContract.ItemEntry.COLUMN_ITEM_NAME,
                 ItemContract.ItemEntry.COLUMN_ITEM_QUANTITY,
-                ItemContract.ItemEntry.COLUMN_ITEM_PRICE};
+                ItemContract.ItemEntry.COLUMN_ITEM_PRICE
+        };
 
         Cursor cursor = context.getContentResolver().query(ItemEntry.CONTENT_URI, projection, null, null, null);
 
         List<SearchResult> searchResults = new ArrayList<>();
-        if(cursor.moveToFirst()){
-            do{
-                SearchResult result = new SearchResult();
-                result.setId( cursor.getInt( cursor.getColumnIndex( ItemEntry._ID ) ) );
-                result.setName( cursor.getString( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_NAME ) ) );
-                result.setQuantity( cursor.getDouble( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_QUANTITY ) ) );
-                result.setPrice( cursor.getDouble( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_PRICE ) ) );
 
-                searchResults.add(result);
-            }while(cursor.moveToNext());
+        // Check if the cursor is not null before attempting to access its data
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        SearchResult result = new SearchResult();
+                        result.setId(cursor.getInt(cursor.getColumnIndex(ItemEntry._ID)));
+                        result.setName(cursor.getString(cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME)));
+                        result.setQuantity(cursor.getDouble(cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY)));
+                        result.setPrice(cursor.getDouble(cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE)));
+
+                        searchResults.add(result);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                // Close the cursor to release its resources
+                cursor.close();
+            }
+        } else {
+            // Handle the case where the cursor is null (e.g., log an error, show a message)
+            Log.e("ItemDbHelper", "Cursor is null in getResult()");
         }
 
         return searchResults;
     }
+
+    
+
+//    public List<SearchResult> getResult(){
+//
+//        // need to get all results but show only 5 somehow ...
+//        String sortOrder = "ROWID LIMIT 5";
+//
+//        String[] projection = {
+//                ItemContract.ItemEntry._ID,
+//                ItemContract.ItemEntry.COLUMN_ITEM_NAME,
+//                ItemContract.ItemEntry.COLUMN_ITEM_QUANTITY,
+//                ItemContract.ItemEntry.COLUMN_ITEM_PRICE};
+//
+//        Cursor cursor = context.getContentResolver().query(ItemEntry.CONTENT_URI, projection, null, null, null);
+//
+//        List<SearchResult> searchResults = new ArrayList<>();
+//        if(cursor.moveToFirst()){
+//            do{
+//                SearchResult result = new SearchResult();
+//                result.setId( cursor.getInt( cursor.getColumnIndex( ItemEntry._ID ) ) );
+//                result.setName( cursor.getString( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_NAME ) ) );
+//                result.setQuantity( cursor.getDouble( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_QUANTITY ) ) );
+//                result.setPrice( cursor.getDouble( cursor.getColumnIndex( ItemEntry.COLUMN_ITEM_PRICE ) ) );
+//
+//                searchResults.add(result);
+//            }while(cursor.moveToNext());
+//        }
+//
+//        return searchResults;
+//    }
 
     // added an 's' after getName
     // dont really need these 2 methods
