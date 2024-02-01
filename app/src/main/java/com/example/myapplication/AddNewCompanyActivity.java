@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,21 +14,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Spinner;
 
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import okhttp3.*;
 import retrofit2.Retrofit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Arrays;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNewCompanyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button addCompanyBtn;
+    private static final OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,19 +101,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
     }
 
     private void postData(String name, String address, String city, String pincode, String state, String gstNo, String companyInSez, String companyType, String supplierType, Float distanceFromAndheri, Float distanceFromVasai) {
-        // below line is for displaying our progress bar.
 
-        // on below line we are creating a retrofit
-        // builder and passing our base url
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitAPICall.URL_BASE)
-                // as we are sending data in json format so
-                // we have to add Gson converter facnetory
-                .addConverterFactory(GsonConverterFactory.create())
-                // at last we are building our retrofit builder.
-                .build();
-        // below line is to create an instance for our retrofit api class.
-        RetrofitAPICall retrofitAPI = retrofit.create(RetrofitAPICall.class);
 
         try {
             JSONObject paramObject = new JSONObject();
@@ -129,29 +118,67 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
             paramObject.put("distance_from_vasai", new Float(distanceFromVasai).toString());
 
 //            Call<CompanyObject> apiCall = retrofitAPI.addCompany(new CompanyObject(name,address,city,pincode, state, gstNo, companyInSez, companyType, supplierType, distanceFromAndheri, distanceFromVasai));
-            Call<String> apiCall = retrofitAPI.addCompany(paramObject.toString());
 
-//            async function call
+            String url = "http://54.204.188.232:5000/add-company";
+
+            String requestObj = paramObject.toString();
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
+
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                            .post(requestBody);
+
+            String SOURCE_NAME = "streamlining-inventory-management";
+            requestBuilder.addHeader("Content-Type", "application/json");
+            requestBuilder.addHeader("source-name", SOURCE_NAME);
+            Request request = requestBuilder.build();
+//            async function call .addHeader('Source-Name', 'streamlining-inventory-management');
             Log.d("AddNewCompanyActivity", "Before api call");
 
-            apiCall.enqueue(new Callback<String>() {
+            client.newCall(request).enqueue(new Callback() {
                 @Override
-                public void onResponse(Call<String>call, retrofit2.Response<String> response) {
-                    Log.i("AddNewActivity", "response block");
-                    if(response.code() == 201) {
-                        Toast.makeText(getApplicationContext(), "Data Added successfully !", Toast.LENGTH_SHORT).show();
-                    }
-
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    Log.i("NewCompanyActivity", "Inside onfailure : "+e.getMessage());
                 }
 
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
-//                    Toast.makeText(getApplicationContext(), "Failed to add data !", Toast.LENGTH_SHORT).show();
-//                    Log.i("AddNewActivity", "failure block");
-//                    Log.i("AddNewActiviy",(t.getMessage()).toString());
-//                    boolean res = apiCall.isExecuted();
-//                    Log.i("AddNewActivity", String.valueOf(res));
+                public void onResponse(@NonNull Call call, @NonNull Response response){
+                    Log.i("NewCompanyActivity","Onresponse" );
+                    try {
+                        String res= response.body().toString();
+                        Log.i("NewCompanyActivity","Response body : " + res);
+                        if (response.isSuccessful()) {
+//                            Toast.makeText(getApplicationContext(), "Data added !", Toast.LENGTH_LONG);
+                            runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    Toast.makeText(getApplicationContext(), "Data Added !", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(AddNewCompanyActivity.this, CatalogActivity.class);
+                                    startActivity(intent);
+                                }
 
+
+                            });
+
+
+                        }
+                        else{
+                            runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    Toast.makeText(getApplicationContext(), "Unable to add data !", Toast.LENGTH_SHORT).show();
+                                }
+
+                            });
+                        }
+
+
+                    }
+                    catch (Exception e){
+                        Log.i("NewCompanyActivity", "Inside onresponse"+e.getMessage());
+                    }
                 }
 
 
@@ -163,14 +190,19 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
 
 
         } catch (JSONException ex) {
-            throw new RuntimeException(ex);
+           ex.printStackTrace();
         }
 
     }
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(adapterView.getContext(), text ,Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(adapterView.getContext(), text ,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,11 +43,24 @@ import com.example.myapplication.Search.SearchAdapter;
 import com.example.myapplication.Search.SearchResult;
 import com.example.myapplication.data.ItemContract;
 import com.example.myapplication.data.ItemDbHelper;
+import com.google.gson.Gson;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 // TODO: 2018-07-08 add "tags" fields to the database
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -105,6 +122,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // Contains all suggestions
     List<SearchResult> searchResultList = new ArrayList<>();
 
+    ArrayList dataList = new ArrayList<String>();
+
 
     // Instance of the database
     ItemDbHelper database;
@@ -112,9 +131,21 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // Flag to determine when to stop loading suggestions
     public int flag1 = 0;
 
+    OkHttpClient client = new OkHttpClient();
+
+    public ArrayAdapter<String> arrayAdapter = null;
+    public ListView listView = null;
     @Override
     protected void onStart() {
         super.onStart();
+
+        // making get request to api endpoint for fetching api endpoint\
+
+//
+//        dataList.add("Company 1");
+//        dataList.add("Company 2");
+//        dataList.add("Company 3");
+
 
         Log.e("catalog", "onStart");
     }
@@ -143,9 +174,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-
+        Context context;
+        context = this;
         // Create a new instance of the database for access to the searchbar
-        database = new ItemDbHelper(this);
+//        database = new ItemDbHelper(this);
+
+        this.arrayAdapter =  new ArrayAdapter<>(CatalogActivity.this , android.R.layout.simple_list_item_1, dataList);
+        this.listView = findViewById(R.id.catalog_list);
+        listView.setAdapter(arrayAdapter);
+        updateDataDynamically();
+
 
         // Create the search bar
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.search_bar1);
@@ -155,7 +193,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         if (flag1 == 0) {
             Log.e("catalog", "tried to set adapter");
-            loadSearchResultList();
+//            loadSearchResultList();
             customSuggestionsAdapter.setSuggestions(searchResultList);
             materialSearchBar.setCustomSuggestionAdapter(customSuggestionsAdapter);
 //          ^---- this line causes problems when starting a new intent
@@ -207,6 +245,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 //                        materialSearchBar.showSuggestionsList();
 //                }
 
+
+                // adding elements in listview
+
             }
 
             @Override
@@ -214,8 +255,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
                 List<SearchResult> testResult1 = loadNewSearchResultList();
                 if(testResult1.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "No Results Found",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "No Results Found",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 SearchResult testResult2 = testResult1.get(0);
@@ -379,6 +419,57 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
 
     }
+    void updateDataDynamically(){
+        String url = "http://54.204.188.232:5000/company";
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response)  {
+                try{
+                    if(response.isSuccessful()) {
+                        String responseData  = response.body().string();
+                        JSONObject jsonResponse = new JSONObject(responseData);
+                        JSONArray companies = (JSONArray) jsonResponse.get("companies");
+                        Log.i("CatalogActivity", responseData.getClass().getSimpleName());
+                        final List<String> newDataList = new ArrayList<>();
+
+                        for (int i = 0; i < companies.length(); i++) {
+
+                            JSONObject tempObj = (JSONObject) companies.get(i);
+                            newDataList.add(tempObj.get("name").toString());
+                            Log.i("CatalogActivity", tempObj.get("name").toString());
+
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dataList.clear();
+                                dataList.addAll(newDataList);
+                                // notify adapter
+
+                            }
+                        });
+
+                        Log.i("CatalogActivity", responseData);
+
+
+                    }
+
+                }
+                catch(Exception e){
+                    Log.i("CatalogActivity", e.getMessage());
+                }
+
+            }
+        });
+
+    }
+
 
     private void startSearch(String s) {
 
@@ -386,7 +477,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     private void loadSearchResultList() {
-        searchResultList = database.getResult();
+//        searchResultList = database.getResult();
     }
 
     private List<SearchResult> loadNewSearchResultList() {
@@ -466,9 +557,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private void deleteAllItems() {
         int rowsDeleted = getContentResolver().delete(ItemContract.ItemEntry.CONTENT_URI, null, null);
         if (rowsDeleted >= 0) {
-            Toast.makeText(this, "All items deleted", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(CatalogActivity.this, "All items deleted", Toast.LENGTH_SHORT).show();
+
         } else {
-            Toast.makeText(this, "An error occurred: Delete failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CatalogActivity.this, "An error occurred: Delete failed", Toast.LENGTH_SHORT).show();
+
         }
     }
 
