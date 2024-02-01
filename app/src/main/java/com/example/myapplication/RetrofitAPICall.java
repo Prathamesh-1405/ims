@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
+import com.google.gson.JsonObject;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -21,6 +25,6 @@ public interface RetrofitAPICall {
     @POST("material-dispatch")
     public Call<String> materialDispatch(@Body String body);
 
-    @GET("company")
+    @GET("compStringany")
     public Call<String> getCompanyNames();
 }

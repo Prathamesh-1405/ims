@@ -2,25 +2,22 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Spinner;
+
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,6 +120,8 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
             }
         });
     }
+
+
 }
 
 //

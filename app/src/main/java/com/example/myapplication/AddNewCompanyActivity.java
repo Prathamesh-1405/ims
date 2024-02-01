@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.net.wifi.hotspot2.ConfigParser;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,19 +9,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Spinner;
-import okhttp3.OkHttpClient;
+
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
-import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
+
+import java.util.Arrays;
+
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNewCompanyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -92,6 +93,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                 Log.d("AddNewCompanyActivity","Data collected");
                 postData(companyName, address, city, pinCode, state, gstNo, companyInSez, companyType, supplierType, distanceFromAndheri, distanceFromVasai);
 
+                Log.d("AddNewCompanyActivity", "After network request");
 
             }
         });
@@ -105,7 +107,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitAPICall.URL_BASE)
                 // as we are sending data in json format so
-                // we have to add Gson converter factory
+                // we have to add Gson converter facnetory
                 .addConverterFactory(GsonConverterFactory.create())
                 // at last we are building our retrofit builder.
                 .build();
@@ -129,28 +131,41 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
 //            Call<CompanyObject> apiCall = retrofitAPI.addCompany(new CompanyObject(name,address,city,pincode, state, gstNo, companyInSez, companyType, supplierType, distanceFromAndheri, distanceFromVasai));
             Call<String> apiCall = retrofitAPI.addCompany(paramObject.toString());
 
-//            apiCall.execute();
-
 //            async function call
-            Log.d("AddNewCompanyActivity","Before api call");
-            apiCall.enqueue(new Callback<String>() {
+            Log.d("AddNewCompanyActivity", "Before api call");
 
+            apiCall.enqueue(new Callback<String>() {
                 @Override
-                public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                    Toast.makeText(getApplicationContext(), response.headers().toString() , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), response.body().toString() , Toast.LENGTH_SHORT).show();
+                public void onResponse(Call<String>call, retrofit2.Response<String> response) {
+                    Log.i("AddNewActivity", "response block");
+                    if(response.code() == 201) {
+                        Toast.makeText(getApplicationContext(), "Data Added successfully !", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(),"Failed to add data !", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Failed to add data !", Toast.LENGTH_SHORT).show();
+//                    Log.i("AddNewActivity", "failure block");
+//                    Log.i("AddNewActiviy",(t.getMessage()).toString());
+//                    boolean res = apiCall.isExecuted();
+//                    Log.i("AddNewActivity", String.valueOf(res));
 
                 }
 
+
             });
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+            Log.d("AddNewCompanyActivity", "After api call");
+            // sychronous network request
+
+
+        } catch (JSONException ex) {
+            throw new RuntimeException(ex);
         }
+
     }
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
