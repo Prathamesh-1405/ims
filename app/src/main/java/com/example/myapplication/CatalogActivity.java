@@ -22,11 +22,48 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import android.view.View;
+import android.content.Intent;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import android.view.Menu;
+import android.view.MenuItem;
+//import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 public class CatalogActivity extends AppCompatActivity {
 
     ListView list;
+//**************************q
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // Find the search item in the menu
+        MenuItem searchItem = menu.findItem(R.id.searchView );
+
+        // Get the SearchView from the search item
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        // Set up a listener for the SearchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Handle the query submission (e.g., perform search)
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Handle changes in the query text (e.g., update search results)
+                return false;
+            }
+        });
+
+        return true;
+    }
+//*************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,11 +138,25 @@ public class CatalogActivity extends AppCompatActivity {
                 }
 
             }
+
+
         });
 
         Log.i("CatalogActivity arrlist", companyArrList.toString());
         list.setAdapter(arr);
 
+        FloatingActionButton fab = findViewById(R.id.AddNewCompanyBtn);
+
+
+        // Set an OnClickListener for the FloatingActionButton
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open a new activity when the FAB is clicked
+                Intent intent = new Intent(CatalogActivity.this, AddNewCompanyActivity.class); // Replace with the name of your new activity
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateListView(){
