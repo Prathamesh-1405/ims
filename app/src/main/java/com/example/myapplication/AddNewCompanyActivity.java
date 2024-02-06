@@ -138,7 +138,14 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    Log.i("NewCompanyActivity", "Inside onfailure : "+e.getMessage());
+                    runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            Toast.makeText(getApplicationContext(), "Unable to add data !", Toast.LENGTH_SHORT).show();
+                        }
+
+                    });
                 }
 
                 @Override
@@ -162,8 +169,21 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                             });
 
 
-                        }
-                        else{
+                        } else if (response.code() == 422) {
+                            runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    Toast.makeText(getApplicationContext(), "Invalid GST no", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(AddNewCompanyActivity.this, CatalogActivity.class);
+                                    startActivity(intent);
+                                }
+
+
+                            });
+
+
+                        } else{
                             runOnUiThread(new Runnable()
                             {
                                 public void run()

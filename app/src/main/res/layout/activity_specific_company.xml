@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TextView -->
+    <TextView
+        android:id="@+id/companyNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:padding="16dp"
+        android:text="TextView"
+        android:gravity="center"
+        android:textSize="24sp" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/companyNameTextView">
+
+        <!-- Button 1 -->
+
+        <!-- Button 2 -->
+        <Button
+            android:id="@id/makeOrderBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@color/light_blue"
+            android:text="Make order" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete "
+            android:id="@+id/deleteBtn"
+            android:layout_marginStart="8dp"
+            android:background="@color/light_blue"/>
+    </LinearLayout>
+</RelativeLayout>

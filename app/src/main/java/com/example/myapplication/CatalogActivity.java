@@ -57,9 +57,19 @@ public class CatalogActivity extends AppCompatActivity {
         super.onStart();
         if (!onCreateRunning){
             if(arrListSize == 0){
-                showAlert("No companies added ", "Click yes to add compaines");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showAlert("No companies added ", "Click yes to add compaines");
+                    }
+                });
+            }
+            else{
+                list.setAdapter(arr);
+                updateListView();
             }
         }
+
     }
 
     @Override
@@ -147,7 +157,9 @@ public class CatalogActivity extends AppCompatActivity {
                                 // Get the clicked item
                                 String selectedItem = (String) parent.getItemAtPosition(position);
                                 // Perform your action here
-                                Toast.makeText(getApplicationContext(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CatalogActivity.this, SpecificCompanyActivity.class); // Replace with the name of your new activity
+                                intent.putExtra("COMPANY_NAME", selectedItem);
+                                startActivity(intent);
                             }
                         });
 
