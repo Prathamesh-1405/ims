@@ -185,7 +185,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/orderNoFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -195,7 +195,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView34"
         app:layout_constraintTop_toBottomOf="@+id/cuttingWeightFieldRm" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/forFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -205,7 +205,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toBottomOf="@+id/quantityFieldRm" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/typeFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -216,7 +216,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/challanNoFieldRm" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/companyNameFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -280,7 +280,7 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/cuttingWeightFieldRm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

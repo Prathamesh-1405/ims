@@ -102,7 +102,7 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void updateListView(){
-        String url = "http://54.204.188.232:5000/company";
+        String url = "http://34.201.111.69:5000/company";
         Request request = new Request.Builder().url(url).build();
 
         client.newCall(request).enqueue(new Callback() {

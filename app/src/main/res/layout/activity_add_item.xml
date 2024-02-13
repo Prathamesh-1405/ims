@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/itemField"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -120,7 +120,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/rodDiameterField"
         android:layout_width="165dp"
         android:layout_height="40dp"

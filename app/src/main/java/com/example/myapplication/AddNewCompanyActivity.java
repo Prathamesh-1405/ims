@@ -82,11 +82,6 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                 String state = stateSelectMenu.getSelectedItem().toString();
                 String gstNo = gstNoField.getText().toString();
                 String companyInSez = companyInSezField.getSelectedItem().toString();
-//                if(companyInSezField.getSelectedItem().toString() == "Yes"){
-//                    companyInSez = true;
-//                }else{
-//                    companyInSez = false;
-//                }
                 String companyType = companyTypeField.getSelectedItem().toString();
                 String supplierType = supplierTypeField.getSelectedItem().toString();
                 Float distanceFromAndheri = Float.parseFloat(distanceFromAndheriField.getText().toString());
@@ -119,14 +114,13 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
 
 //            Call<CompanyObject> apiCall = retrofitAPI.addCompany(new CompanyObject(name,address,city,pincode, state, gstNo, companyInSez, companyType, supplierType, distanceFromAndheri, distanceFromVasai));
 
-            String url = "http://54.204.188.232:5000/add-company";
+            String url = "http://34.201.111.69:5000/add-company";
 
             String requestObj = paramObject.toString();
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
 
             Request.Builder requestBuilder = new Request.Builder()
-                    .url(url)
-                            .post(requestBody);
+                    .url(url).post(requestBody);
 
             String SOURCE_NAME = "streamlining-inventory-management";
             requestBuilder.addHeader("Content-Type", "application/json");
@@ -155,7 +149,6 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                         String res= response.body().toString();
                         Log.i("NewCompanyActivity","Response body : " + res);
                         if (response.isSuccessful()) {
-//                            Toast.makeText(getApplicationContext(), "Data added !", Toast.LENGTH_LONG);
                             runOnUiThread(new Runnable()
                             {
                                 public void run()
