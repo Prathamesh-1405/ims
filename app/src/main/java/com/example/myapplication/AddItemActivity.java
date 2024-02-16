@@ -29,11 +29,13 @@ public class AddItemActivity extends AppCompatActivity {
 
     private OkHttpClient client = new OkHttpClient();
     Button addItemBtn;
+
+    DbManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
+        dbManager = new DbManager(this);
         addItemBtn = findViewById(R.id.addItemBtn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +56,17 @@ public class AddItemActivity extends AppCompatActivity {
                 String quantityVal = quantity.getText().toString();
                 String totalVal = total.getText().toString();
 
-                try {
-                    addItem(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantityVal, totalVal);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
 
+                if(!itemVal.isEmpty() && !rodDiameterVal.isEmpty() && !unitWeightVal.isEmpty() && !unitPriceVal.isEmpty() && !quantityVal.isEmpty() && !totalVal.isEmpty()){
+                    try {
+                        addItem(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantityVal, totalVal);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Please data in text fields !", Toast.LENGTH_SHORT).show();
+                }
             }
 
 
@@ -67,70 +74,10 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void addItem(String itemVal, String rodDiameterVal, String unitWeightVal, String unitPriceVal, String quantiyVal, String totalVal) throws Exception {
-        String url = "http://34.201.111.69:5000/add-item";
-
-
-        JSONObject paramObj = new JSONObject();
-        paramObj.put("item", new String(itemVal));
-        paramObj.put("rod_diameter", new String(rodDiameterVal));
-        paramObj.put("unit_weight", new String(unitWeightVal));
-        paramObj.put("unit_price", new String(unitPriceVal));
-        paramObj.put("quantity", new String(quantiyVal));
-        paramObj.put("total", new String(totalVal));
-
-        String requestObj = paramObj.toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
-
-        Request.Builder requestBuilder = new Request.Builder()
-                .url(url)
-                .post(requestBody);
-
-        String SOURCE_NAME = "streamlining-inventory-management";
-        requestBuilder.addHeader("Content-Type", "application/json");
-        requestBuilder.addHeader("source-name", SOURCE_NAME);
-        Request request = requestBuilder.build();
-        client.newCall(request).enqueue(new Callback() {
-
-
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Failed to add data", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                try{
-                    String res = response.body().toString();
-                    if(response.isSuccessful()){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Item added !", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(AddItemActivity.this, CompanyActivity.class));
-                            }
-                        });
-                    }
-                    else if(response.code() != 201){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Unable to add item !", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-        });
+        dbManager.open();
+        dbManager.insert(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantiyVal,totalVal);
+        dbManager.close();
+        Toast.makeText(getApplicationContext(), "Item added successfully !", Toast.LENGTH_SHORT).show();
     }
 
 }
