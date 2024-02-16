@@ -30,12 +30,13 @@ public class AddItemActivity extends AppCompatActivity {
     private OkHttpClient client = new OkHttpClient();
     Button addItemBtn;
 
-    DbManager dbManager;
+    ItemDAO itemDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        dbManager = new DbManager(this);
+        itemDAO = new ItemDAO(this);
         addItemBtn = findViewById(R.id.addItemBtn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,7 @@ public class AddItemActivity extends AppCompatActivity {
 
                 if(!itemVal.isEmpty() && !rodDiameterVal.isEmpty() && !unitWeightVal.isEmpty() && !unitPriceVal.isEmpty() && !quantityVal.isEmpty() && !totalVal.isEmpty()){
                     try {
-                        addItem(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantityVal, totalVal);
+                        addItem(itemVal, Double.parseDouble(rodDiameterVal), Double.parseDouble(unitWeightVal), Double.parseDouble(unitPriceVal), Integer.parseInt(quantityVal), Double.parseDouble(totalVal));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -73,11 +74,38 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-    private void addItem(String itemVal, String rodDiameterVal, String unitWeightVal, String unitPriceVal, String quantiyVal, String totalVal) throws Exception {
-        dbManager.open();
-        dbManager.insert(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantiyVal,totalVal);
-        dbManager.close();
-        Toast.makeText(getApplicationContext(), "Item added successfully !", Toast.LENGTH_SHORT).show();
-    }
+    private void addItem(String itemVal, double rodDiameterVal, double unitWeightVal, double unitPriceVal, int quantiyVal, double totalVal) throws Exception {
+//        dbManager.open();
+//        dbManager.insert(itemVal, rodDiameterVal, unitWeightVal, unitPriceVal, quantiyVal,totalVal);
+//        dbManager.close();
+//        Toast.makeText(getApplicationContext(), "Item added successfully !", Toast.LENGTH_SHORT).show();
+        Item item = new Item();
+        item.setItemName(itemVal);
+        item.setRodDiameter(rodDiameterVal);
+        item.setUnitWeight(unitWeightVal);
+        item.setUnitPrice(unitPriceVal);
+        item.setQuantity(quantiyVal);
+        item.setTotal(unitPriceVal * quantiyVal);
 
+
+        long id = itemDAO.insertItem(item);
+
+        if (id != -1){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Item inserted successfully", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else{
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Unable to insert item", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+    }
 }
