@@ -46,6 +46,7 @@ public class SpecificCompanyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent orderBtnIntent = new Intent(SpecificCompanyActivity.this, CompanyActivity.class);
+                orderBtnIntent.putExtra("COMPANY_NAME", companyName);
                 startActivity(orderBtnIntent);
             }
         });

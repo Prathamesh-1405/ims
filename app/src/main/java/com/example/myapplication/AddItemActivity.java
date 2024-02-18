@@ -97,6 +97,8 @@ public class AddItemActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Item inserted successfully", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            startActivity(new Intent(AddItemActivity.this, CompanyActivity.class));
         }
         else{
             runOnUiThread(new Runnable() {

@@ -13,8 +13,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        DbHelper d = new DbHelper(this);
-        Log.i("DbHelper", d.CREATE_TABLE_STMT);
     }
     public void onClickPurchase(View view) {
         startActivity(new Intent(HomeActivity.this,PurchaseActivity.class));

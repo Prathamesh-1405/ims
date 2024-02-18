@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.http.BidirectionalStream;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -10,28 +12,31 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Spinner;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Converter;
-import retrofit2.Retrofit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.converter.gson.GsonConverterFactory;
 public class RawMaterialEntryActivity extends AppCompatActivity  {
 
+    OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raw_material_entry);
         Button finishBtn = findViewById(R.id.finishBtn);
-
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,21 +75,13 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
             }
 
             private void addRawMaterialEntryFn(String companyName, String challanNo, String type, String apmChallanNo, String size, String quantity, String forFieldVal, String cuttingSize, String cuttingWeight, String orderNo, String orderSize) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(RetrofitAPICall.URL_BASE)
-                        // as we are sending data in json format so
-                        // we have to add Gson converter factory
-                        .addConverterFactory(GsonConverterFactory.create())
-                        // at last we are building our retrofit builder.
-                        .build();
-                // below line is to create an instance for our retrofit api class.
-                RetrofitAPICall retrofitAPI = retrofit.create(RetrofitAPICall.class);
+                OkHttpClient client = new OkHttpClient();
 
                 JSONObject paramObj = new JSONObject();
                 try {
-                    paramObj.put("comapny_name", new String(companyName));
+                    paramObj.put("company_name", new String(companyName));
                     paramObj.put("challan_no", new String(challanNo));
-                    paramObj.put("type_", new String(type));
+                    paramObj.put("type", new String(type));
                     paramObj.put("apm_challan_no", new String(apmChallanNo));
                     paramObj.put("size", new String(size));
                     paramObj.put("quantity", new String(quantity));
@@ -97,24 +94,54 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                     e.printStackTrace();
                 }
 
+                String url = "http://34.201.111.69:5000/add-material";
 
-                Call<String> apiCall = retrofitAPI.addMaterialEntry(paramObj.toString());
-                apiCall.enqueue(new Callback<String>() {
+                String requestObj = paramObj.toString();
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
 
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(url).post(requestBody);
+
+                String SOURCE_NAME = "streamlining-inventory-management";
+                requestBuilder.addHeader("Content-Type", "application/json");
+                requestBuilder.addHeader("source-name", SOURCE_NAME);
+                Request request = requestBuilder.build();
+
+                client.newCall(request).enqueue(new Callback() {
                     @Override
-                    public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                        Toast.makeText(getApplicationContext(), "Data added !", Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call call, Response response){
+                        if (response.isSuccessful()) {
+                            String responseBody = response.body().toString();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Raw material added !", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            startActivity(new Intent(RawMaterialEntryActivity.this, HomeActivity.class));
+
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Unable to add data !", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Failed to add data !", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call call, IOException e) {
+                        Toast.makeText(getApplicationContext(), "Unable to add raw material !", Toast.LENGTH_SHORT).show();
 
                     }
-
                 });
             }
-        });
+
+            });
+
     }
 
 

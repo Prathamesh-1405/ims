@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.data.ItemContract.ItemEntry.TABLE_NAME;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,6 +39,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_ITEMS);
+    }
+
+    public void truncateTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_ITEMS);
+        db.close();
     }
 
     @Override
