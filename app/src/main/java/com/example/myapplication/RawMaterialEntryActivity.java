@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,30 +40,30 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Spinner companyNameField = findViewById(R.id.companyNameFieldRm);
+                AutoCompleteTextView companyNameField = findViewById(R.id.companyNameFieldRm);
                 EditText challanNoField = findViewById(R.id.challanNoFieldRm);
-                Spinner typeField = findViewById(R.id.typeFieldRm);
+                AutoCompleteTextView typeField = findViewById(R.id.typeFieldRm);
                 EditText apmChallanNoField = findViewById(R.id.apmChallanNo);
                 EditText sizeField = findViewById(R.id.sizeFieldRm);
                 EditText quantityField = findViewById(R.id.quantityFieldRm);
-                Spinner forField = findViewById(R.id.forFieldRm);
+                AutoCompleteTextView forField = findViewById(R.id.forFieldRm);
                 EditText cuttingSizeField = findViewById(R.id.cuttingSizeFieldRm);
                 EditText cuttingWeightField = findViewById(R.id.cuttingWeightFieldRm);
-                Spinner orderNoField = findViewById(R.id.orderNoFieldRm);
+                AutoCompleteTextView orderNoField = findViewById(R.id.orderNoFieldRm);
                 EditText orderSizeField = findViewById(R.id.orderSizeFieldRm);
 
                 // getting values through components
 
-                String companyName = companyNameField.getSelectedItem().toString();
+                String companyName = companyNameField.getText().toString();
                 String challanNo = challanNoField.getText().toString();
-                String type = typeField.getSelectedItem().toString();
+                String type = typeField.getText().toString();
                 String apmChallanNo = apmChallanNoField.getText().toString();
                 String size = sizeField.getText().toString();
                 String quantity = quantityField.getText().toString();
-                String forFieldVal = forField.getSelectedItem().toString();
+                String forFieldVal = forField.getText().toString();
                 String cuttingSize = cuttingSizeField.getText().toString();
                 String cuttingWeight = cuttingWeightField.getText().toString();
-                String orderNo = orderNoField.getSelectedItem().toString();
+                String orderNo = orderNoField.getText().toString();
                 String orderSize = orderSizeField.getText().toString();
 
                 try {

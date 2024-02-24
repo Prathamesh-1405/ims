@@ -24,7 +24,7 @@
         <!-- Add more options as needed -->
     </string-array>
 
-<!--    <string name="app_name">Inventory</string>-->
+    <!--    <string name="app_name">Inventory</string>-->
     <string name="action_delete_all_entries">Delete All Items</string>
     <string name="empty_view_title_text">It\'s a bit lonely here...</string>
     <string name="empty_view_subtitle_text">Get started by adding an item</string>
@@ -61,4 +61,13 @@
     <string name="discard">Discard changes</string>
     <string name="edit">Keep editing</string>
     <string name="sort_dialog_msg">Sort By</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

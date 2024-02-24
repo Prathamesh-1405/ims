@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
         setContentView(R.layout.activity_add_new_company);
         addCompanyBtn = findViewById(R.id.addCompanyBtn);
 
-        Spinner spinner1 = findViewById(R.id.stateField);
+        AutoCompleteTextView spinner1 = findViewById(R.id.stateField);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.stateSpinner, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
@@ -66,7 +67,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                 EditText addressField = findViewById(R.id.addressField);
                 EditText cityField = findViewById(R.id.cityField);
                 EditText pincodeField = findViewById(R.id.pinCodeField);
-                Spinner stateSelectMenu = findViewById(R.id.stateField);
+                AutoCompleteTextView stateSelectMenu = findViewById(R.id.stateField);
                 EditText gstNoField = findViewById(R.id.gstNoField);
                 Spinner companyInSezField = findViewById(R.id.companyInSezField);
                 Spinner companyTypeField = findViewById(R.id.companyTypeField);
@@ -79,7 +80,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
                 String address = addressField.getText().toString();
                 String city = cityField.getText().toString();
                 String pinCode = pincodeField.getText().toString();
-                String state = stateSelectMenu.getSelectedItem().toString();
+                String state = stateSelectMenu.getText().toString();
                 String gstNo = gstNoField.getText().toString();
                 String companyInSez = companyInSezField.getSelectedItem().toString();
 //                if(companyInSezField.getSelectedItem().toString() == "Yes"){
