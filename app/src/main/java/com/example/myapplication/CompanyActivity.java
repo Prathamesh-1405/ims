@@ -16,9 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +45,7 @@ public class CompanyActivity extends AppCompatActivity {
     ArrayList<String> arrItemList = new ArrayList<String>();
 
     boolean onCreatRunning = false;
-
+    String companyName;
     int lenOfResonseList;
     int arrListSize;
     @Override
