@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg5_scm"
+    android:background="#FFFFFF"
     android:onClick="onClickAddItem"
     tools:context=".CompanyActivity">
 
@@ -26,7 +26,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Order No."
-        android:textColor="#FFFFFF"
+        android:textColor="#201E1E"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/textView17"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextMultiLine7"
@@ -41,7 +41,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Rate"
-        android:textColor="#FFFFFF"
+        android:textColor="#272424"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextMultiLine8"
