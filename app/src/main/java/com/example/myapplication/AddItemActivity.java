@@ -40,7 +40,7 @@ public class AddItemActivity extends AppCompatActivity {
         addItemBtn = findViewById(R.id.addItemBtn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 AutoCompleteTextView item = findViewById(R.id.itemField);
                 AutoCompleteTextView rodDiameter = findViewById(R.id.rodDiameterField);
                 EditText unitWeight = findViewById(R.id.unitWeightField);

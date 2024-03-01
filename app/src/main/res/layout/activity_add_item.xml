@@ -4,20 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg4_scm"
+    android:background="@color/lavender_blush"
     tools:context=".AddItemActivity">
 
-    <ImageView
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/imageView"
-        android:layout_width="83dp"
-        android:layout_height="42dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginTop="36dp"
-        android:background="@drawable/back2"
+        android:background="@drawable/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_add_shopping_cart_24" />
+        app:cardElevation="12dp"
+        >
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="70dp"
+            android:src="@drawable/add_Item"/>
+
+
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textView18"
@@ -26,7 +37,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Item"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView19"
         app:layout_constraintEnd_toStartOf="@+id/itemField"
@@ -41,7 +52,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Rod Diameter"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView20"
         app:layout_constraintEnd_toStartOf="@+id/rodDiameterField"
@@ -56,7 +67,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Unit Weight"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView21"
         app:layout_constraintEnd_toStartOf="@+id/unitWeightField"
@@ -71,7 +82,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Unit Price"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView22"
         app:layout_constraintEnd_toStartOf="@+id/unitPriceField"
@@ -86,7 +97,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Quantity"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView23"
         app:layout_constraintEnd_toStartOf="@+id/quantityField"
@@ -101,7 +112,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:text="Total"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/addItemBtn"
         app:layout_constraintEnd_toStartOf="@+id/totalField"
@@ -113,7 +124,7 @@
         android:id="@+id/itemField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/rodDiameterField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -124,7 +135,7 @@
         android:id="@+id/rodDiameterField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/unitWeightField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -135,7 +146,7 @@
         android:id="@+id/quantityField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/totalField"
@@ -148,7 +159,7 @@
         android:id="@+id/unitWeightField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/unitPriceField"
@@ -161,7 +172,7 @@
         android:id="@+id/unitPriceField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/quantityField"
@@ -174,7 +185,7 @@
         android:id="@+id/totalField"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#000000"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/addItemBtn"
