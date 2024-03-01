@@ -85,14 +85,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-<<<<<<< HEAD
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-=======
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#E8E8FA">
->>>>>>> designing
 
             <ListView
                 android:id="@+id/itemList"
@@ -141,12 +136,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-<<<<<<< HEAD
-                app:srcCompat="@drawable/baseline_add_shopping_cart_24" />
-
-=======
-                app:srcCompat="@drawable/add_Item" />
->>>>>>> designing
+                app:srcCompat="@drawable/add_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

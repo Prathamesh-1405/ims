@@ -94,7 +94,7 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                     e.printStackTrace();
                 }
 
-                String url = "http://34.201.111.69:5000/add-material";
+                String url = "http://192.168.1.122:5000/add-material";
 
                 String requestObj = paramObj.toString();
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
