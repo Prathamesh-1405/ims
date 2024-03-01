@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,8 +26,8 @@ public class AddItemActivity extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Spinner item = findViewById(R.id.itemField);
-                Spinner rodDiameter = findViewById(R.id.rodDiameterField);
+                AutoCompleteTextView item = findViewById(R.id.itemField);
+                AutoCompleteTextView rodDiameter = findViewById(R.id.rodDiameterField);
                 EditText unitWeight = findViewById(R.id.unitWeightField);
                 EditText unitPrice = findViewById(R.id.unitPriceField);
                 EditText quantity = findViewById(R.id.quantityField);
@@ -34,8 +35,8 @@ public class AddItemActivity extends AppCompatActivity {
 
                 // getting values
 
-                String itemVal = item.getSelectedItem().toString();
-                String rodDiameterVal = rodDiameter.getSelectedItem().toString();
+                String itemVal = item.getText().toString();
+                String rodDiameterVal = rodDiameter.getText().toString();
                 String unitWeightVal = unitWeight.getText().toString();
                 String unitPriceVal = unitPrice.getText().toString();
                 String quantityVal = quantity.getText().toString();
