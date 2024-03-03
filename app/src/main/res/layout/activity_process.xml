@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="284dp" />
+        tools:layout_editor_absoluteY="284dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button10"
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="158dp" />
+        tools:layout_editor_absoluteY="158dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button11"
@@ -28,7 +30,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="130dp" />
+        tools:layout_editor_absoluteY="130dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button12"
@@ -36,7 +39,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="313dp" />
+        tools:layout_editor_absoluteY="313dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button13"
@@ -44,7 +48,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="450dp" />
+        tools:layout_editor_absoluteY="450dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button15"
@@ -52,5 +57,6 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="301dp"
-        tools:layout_editor_absoluteY="424dp" />
+        tools:layout_editor_absoluteY="424dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

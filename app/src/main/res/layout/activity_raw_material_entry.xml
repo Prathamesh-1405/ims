@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@@color/white"
+    android:background="@color/white"
 
     tools:context=".RawMaterialEntryActivity">
 
@@ -186,7 +186,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <AutoCompleteTextView
-    <AutoCompleteTextView
         android:id="@+id/orderNoFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -196,7 +195,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView34"
         app:layout_constraintTop_toBottomOf="@+id/cuttingWeightFieldRm" />
 
-    <AutoCompleteTextView
     <AutoCompleteTextView
         android:id="@+id/forFieldRm"
         android:layout_width="165dp"
@@ -208,7 +206,6 @@
         app:layout_constraintTop_toBottomOf="@+id/quantityFieldRm" />
 
     <AutoCompleteTextView
-    <AutoCompleteTextView
         android:id="@+id/typeFieldRm"
         android:layout_width="165dp"
         android:layout_height="40dp"
@@ -219,7 +216,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/challanNoFieldRm" />
 
-    <AutoCompleteTextView
     <AutoCompleteTextView
         android:id="@+id/companyNameFieldRm"
         android:layout_width="165dp"
