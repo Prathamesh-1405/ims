@@ -46,12 +46,14 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickNewOrder"
                     android:src="@drawable/order" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickNewOrder"
                     android:text="New Order"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -84,12 +86,14 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickPurchase"
                     android:src="@drawable/purchasing" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickPurchase"
                     android:text="Purchase"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -113,20 +117,23 @@
                 android:id="@+id/Raw_Material"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/lavender_blush"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@color/lavender_blush">
+                android:onClick="onClickRawMaterialEntry"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickRawMaterialEntry"
                     android:src="@drawable/raw_material" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:onClick="onClickRawMaterialEntry"
                     android:text="Raw Material Entry"
                     android:textColor="@color/black"
                     android:textSize="18sp"
