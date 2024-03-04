@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -13,9 +14,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
+
     }
     public void onClickPurchase(View view) {
-        startActivity(new Intent(HomeActivity.this,PurchaseActivity.class));
+        startActivity(new Intent(HomeActivity.this, CompanyActivity.class));
     }
 
     public void onClickRawMaterialEntry(View view) {

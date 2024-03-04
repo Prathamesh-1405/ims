@@ -38,30 +38,30 @@ public class PurchaseActivity extends AppCompatActivity {
 
         ArrayList items = new ArrayList();
         // Example data for AutoCompleteTextView
-        String companyJsonString = fetchCompanyNames();
-        List<String> list = null;
-        try {
-            JSONObject jsonObject = new JSONObject(companyJsonString);
-            String companies  = (String)jsonObject.get("companies");
-            list = new ArrayList<String>(Collections.singleton(companies));
-            for (int i = 0; i < list.size(); i++) {
-                items.add(list.get(i));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        String companyJsonString = fetchCompanyNames();
+//        List<String> list = null;
+//        try {
+//            JSONObject jsonObject = new JSONObject(companyJsonString);
+//            String companies  = (String)jsonObject.get("companies");
+//            list = new ArrayList<String>(Collections.singleton(companies));
+//            for (int i = 0; i < list.size(); i++) {
+//                items.add(list.get(i));
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 
         // Create an ArrayAdapter with the data
 //        String companyArr[] = (String[]) items.toArray();
-        String companyArr[] = new String[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            companyArr[i] = list.get(i);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, companyArr);
+//        String companyArr[] = new String[list.size()];
+//        for (int i = 0; i < list.size(); i++) {
+//            companyArr[i] = list.get(i);
+//        }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, companyArr);
 
         // Set the adapter to AutoCompleteTextView
-        autoCompleteTextView.setAdapter(adapter);
+//        autoCompleteTextView.setAdapter(adapter);
 
     }
 

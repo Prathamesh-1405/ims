@@ -21,9 +21,8 @@
         android:layout_marginRight="24dp"
         android:layout_marginTop="-80dp"
         android:layout_below="@+id/top_view">
-
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -40,12 +39,14 @@
                 android:gravity="center"
                 android:onClick="onClickNewOrder"
                 android:orientation="vertical"
+                android:layout_weight="1"
                 android:background="@color/lavender">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     android:onClick="onClickNewOrder"
                     android:src="@drawable/order" />
 
@@ -63,7 +64,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -78,15 +79,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:onClick="onClickPurchase"
                 android:orientation="vertical"
                 android:background="@color/lavender_blush">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="onClickPurchase"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/purchasing" />
 
                 <TextView
@@ -103,7 +104,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -123,10 +124,12 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:onClick="onClickRawMaterialEntry"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/raw_material" />
 
                 <TextView
@@ -143,7 +146,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -162,10 +165,11 @@
                 android:background="@color/lavender">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/order_details" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/order_details"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -180,7 +184,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -199,10 +203,11 @@
                 android:background="@color/lavender">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/track" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/track"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -217,7 +222,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
@@ -236,10 +241,11 @@
                 android:background="@color/lavender_blush">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/admin" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/admin"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -256,7 +262,6 @@
 
 
     </GridLayout>
-
     <TextView
         android:id="@+id/textView43"
         android:layout_width="208dp"
