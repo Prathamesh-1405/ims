@@ -15,7 +15,7 @@
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
         style="@style/MaterialSearchBarLight"
-        app:mt_speechMode="true"
+        app:mt_speechMode="false"
         app:mt_hint="Custom hint"
         app:mt_maxSuggestionsCount="10"
         android:layout_width="0dp"
