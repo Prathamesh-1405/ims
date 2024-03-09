@@ -72,6 +72,14 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                     e.printStackTrace();
                 }
 
+
+                // Passing the inputs to the QRCodeActivity
+                Intent intent = new Intent(RawMaterialEntryActivity.this, GenerateQrActivity.class);
+                intent.putExtra("orderNo", orderNo);
+                intent.putExtra("cuttingSize", cuttingSize);
+                intent.putExtra("cuttingWeight", cuttingWeight);
+                startActivity(intent);
+
             }
 
             private void addRawMaterialEntryFn(String companyName, String challanNo, String type, String apmChallanNo, String size, String quantity, String forFieldVal, String cuttingSize, String cuttingWeight, String orderNo, String orderSize) {

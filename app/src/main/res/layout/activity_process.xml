@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProcessActivity">
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/button14"
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="284dp" />
+        android:text="Inventory Tracking"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/button10"
+    <TextView
+        android:id="@+id/itemNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="158dp" />
+        android:text="Item Name:"
+        android:textSize="18sp"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="32dp" />
 
-    <Button
-        android:id="@+id/button11"
+    <EditText
+        android:id="@+id/itemNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemNameLabel"
+        android:layout_marginTop="8dp"
+        android:hint="Enter item name" />
+
+    <TextView
+        android:id="@+id/quantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="130dp" />
+        android:text="Quantity:"
+        android:textSize="18sp"
+        android:layout_below="@id/itemNameEditText"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/quantityEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/quantityLabel"
+        android:layout_marginTop="8dp"
+        android:inputType="number"
+        android:hint="Enter quantity" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="313dp" />
+        android:layout_below="@id/quantityEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Add to Inventory" />
 
     <Button
-        android:id="@+id/button13"
+        android:id="@+id/viewInventoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="450dp" />
+        android:layout_below="@id/addButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="View Inventory" />
 
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="301dp"
-        tools:layout_editor_absoluteY="424dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
