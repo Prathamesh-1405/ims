@@ -115,7 +115,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
 
 //            Call<CompanyObject> apiCall = retrofitAPI.addCompany(new CompanyObject(name,address,city,pincode, state, gstNo, companyInSez, companyType, supplierType, distanceFromAndheri, distanceFromVasai));
 
-            String url = "http://34.201.111.69:5000/add-company";
+            String url = "http://192.168.0.200:5000/add-company";
 
             String requestObj = paramObject.toString();
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
