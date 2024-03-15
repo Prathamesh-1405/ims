@@ -2,11 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- adding permissions on below line -->
+    <uses-feature
+        android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -20,16 +23,20 @@
         android:theme="@style/Theme.SupplyChainManagement"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ScanQrActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.myapplication.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-           >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".SpecificCompanyActivity"
             android:exported="false" />
@@ -39,9 +46,7 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+
         <activity
             android:name=".BillingActivity"
             android:exported="false" />
@@ -117,13 +122,13 @@
         <activity
             android:name=".CatalogActivity"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".EditorActivity"
-            android:parentActivityName=".CatalogActivity" />
-        <activity
-            android:name=".ItemActivity"
-            android:parentActivityName=".CatalogActivity"
-            android:theme="@style/noTitle" />
+<!--        <activity-->
+<!--            android:name=".EditorActivity"-->
+<!--            android:parentActivityName=".CatalogActivity" />-->
+<!--        <activity-->
+<!--            android:name=".ItemActivity"-->
+<!--            android:parentActivityName=".CatalogActivity"-->
+<!--            android:theme="@style/noTitle" />-->
 
         <provider
             android:name=".data.ItemProvider"

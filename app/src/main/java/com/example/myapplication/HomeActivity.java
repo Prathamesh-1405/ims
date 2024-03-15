@@ -30,4 +30,8 @@ public class HomeActivity extends AppCompatActivity {
     public void onClickNewOrder(View view) {
         startActivity(new Intent(HomeActivity.this,CatalogActivity.class));
     }
+
+    public void onClickTrack(View view) {
+        startActivity(new Intent(HomeActivity.this,ScanQrActivity.class));
+    }
 }
