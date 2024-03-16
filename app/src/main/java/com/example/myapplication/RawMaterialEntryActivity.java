@@ -102,9 +102,9 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                String url = "http://192.168.0.200:5000/add-material";
-
+                ApiServiceDetails apiServiceDetails = null;
+//                String url = "http://172.20.10.3:5000/add-material";
+                String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/add-material";
                 String requestObj = paramObj.toString();
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
 

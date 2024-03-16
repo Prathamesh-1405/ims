@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,11 +21,13 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class GenerateQrActivity extends AppCompatActivity {
 
     private LinearLayout save;
     private LinearLayout share;
+    private LinearLayout cancel;
     private Bitmap qrCodeBitmap;
     private ImageView qrCodeImageView;
 
@@ -35,6 +38,7 @@ public class GenerateQrActivity extends AppCompatActivity {
 
         save = findViewById(R.id.Save);
         share = findViewById(R.id.Share);
+        cancel = findViewById(R.id.Cancel);
         qrCodeImageView = findViewById(R.id.qr_code);
         // Getting the inputs from the intent
         Intent intent = getIntent();
@@ -62,6 +66,12 @@ public class GenerateQrActivity extends AppCompatActivity {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateQrActivity.this, HomeActivity.class));
+            }
+        });
 
     }
 
@@ -87,7 +97,9 @@ public class GenerateQrActivity extends AppCompatActivity {
     }
 
     private void saveImageLocally(Bitmap bitmap) {
-        String folderPath = getExternalFilesDir(null).getAbsolutePath(); // Get external storage directory
+        // Get external storage directory
+        String folderPath = getExternalFilesDir(null).getAbsolutePath();
+
         String fileName = "QR_Code.jpg"; // Name for your image file
 
         File file = new File(folderPath, fileName);
@@ -106,29 +118,26 @@ public class GenerateQrActivity extends AppCompatActivity {
 
     private void shareImage(Bitmap bitmap) {
         // Save the bitmap to a temporary file
-        try {
-            File file = new File(getExternalCacheDir(), "QR_Code.jpg");
-            FileOutputStream os = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            os.flush();
-            os.close();
-
-            // Create intent to share the image
+        if (qrCodeBitmap != null) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("image/*");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, getUriForFile(file));
+            shareIntent.setType("image/png");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, getImageUri(qrCodeBitmap));
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(shareIntent, "Share QR Code"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Failed to share QR code", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private Uri getUriForFile(File file) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
-        } else {
-            return Uri.fromFile(file);
+    private Uri getImageUri(Bitmap inImage) {
+        String path = Objects.requireNonNull(getExternalCacheDir()).getPath() + "/qr_code.png";
+        java.io.File file = new java.io.File(path);
+        try {
+            java.io.FileOutputStream out = new java.io.FileOutputStream(file);
+            inImage.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return android.net.Uri.parse("file://" + file.getAbsolutePath());
     }
 }

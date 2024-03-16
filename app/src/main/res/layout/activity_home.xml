@@ -203,6 +203,7 @@
                 android:background="@color/lavender">
 
                 <ImageView
+                    android:id="@+id/tracking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/track"
