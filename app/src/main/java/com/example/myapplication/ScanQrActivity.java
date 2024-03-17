@@ -1,11 +1,12 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,15 +16,16 @@ import androidx.core.content.ContextCompat;
 
 import com.google.zxing.Result;
 
-import java.io.IOException;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams;
+
 
 public class ScanQrActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1001;
-    private SurfaceView cameraPreview;
     private ZXingScannerView scannerView;
+    private TextView scannedInfoTextView;
+    private SurfaceView cameraPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class ScanQrActivity extends AppCompatActivity implements ZXingScannerVie
         setContentView(R.layout.activity_scan_qr);
 
         cameraPreview = findViewById(R.id.camera_preview);
-        scannerView = new ZXingScannerView(this);
+        scannedInfoTextView = findViewById(R.id.scannedInfoTextView);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             startCamera();
@@ -45,18 +47,18 @@ public class ScanQrActivity extends AppCompatActivity implements ZXingScannerVie
     }
 
     private void startCamera() {
+        scannerView = new ZXingScannerView(this);
+        scannerView.setResultHandler(this);
+
         SurfaceHolder surfaceHolder = cameraPreview.getHolder();
         surfaceHolder.addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (scannerView != null) {
-                        scannerView.setResultHandler(ScanQrActivity.this);
-                        scannerView.startCamera();
-                        setContentView(scannerView);
-                    }
+                    scannerView.startCamera();
+                    scannerView.resumeCameraPreview(ScanQrActivity.this);
                 } catch (Exception e) {
-                    Log.e("Scanner", "Error starting camera: " + e.getMessage());
+                    e.printStackTrace();
                     Toast.makeText(ScanQrActivity.this, "Failed to start camera", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -64,17 +66,18 @@ public class ScanQrActivity extends AppCompatActivity implements ZXingScannerVie
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                // Not used, but required to implement SurfaceHolder.Callback
             }
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                // Release camera resources
                 if (scannerView != null) {
                     scannerView.stopCamera();
                 }
             }
         });
+
+        // Add scannerView to the layout
+        addContentView(scannerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -92,12 +95,12 @@ public class ScanQrActivity extends AppCompatActivity implements ZXingScannerVie
 
     @Override
     public void handleResult(Result result) {
-        // Handle QR code result
-        Toast.makeText(this, "QR Code Scanned: " + result.getText(), Toast.LENGTH_SHORT).show();
-
-        // Resume scanning after a short delay
-        scannerView.resumeCameraPreview(this);
+        String scannedInfo = result.getText();
+        Intent intent = new Intent(this, ScannedInfoActivity.class);
+        intent.putExtra("SCANNED_INFO", scannedInfo);
+        startActivity(intent);
     }
+
 
     @Override
     protected void onPause() {
