@@ -4,19 +4,19 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/container"
+        android:id="@+id/container_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
         <!-- Dynamic views for items -->
-
+        <include layout="@layout/update_order_item_layout"/>
         <!-- Example for a single item -->
 
 
         <Button
-            android:id="@+id/finish_button"
+            android:id="@+id/finish_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Finish" />
