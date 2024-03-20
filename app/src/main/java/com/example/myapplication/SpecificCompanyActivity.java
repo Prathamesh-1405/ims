@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,8 +56,7 @@ public class SpecificCompanyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // delete company code
-                boolean result = deleteCompany(intent.getStringExtra("COMPANY_NAME"));
-                startActivity(new Intent(SpecificCompanyActivity.this, CatalogActivity.class));
+                deleteCompany(intent.getStringExtra("COMPANY_NAME"));
             }
         });
 
@@ -64,41 +64,49 @@ public class SpecificCompanyActivity extends AppCompatActivity {
     }
 
     private boolean deleteCompany(String companyName) {
+        boolean status = false;
         OkHttpClient client = new OkHttpClient();
 
         JSONObject paramObject = new JSONObject();
         try {
             paramObject.put("name", companyName);
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        // Define the URL of the resource to be deleted
-        String url = "http://54.204.188.232:5000/company/" + companyName;
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/remove-company";
         String requestObj = paramObject.toString();
-        // Create a DELETE request with the specified URL
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObj);
-
-        Request.Builder requestBuilder = new Request.Builder()
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("application/json"), // Specify the media type
+                paramObject.toString()
+        );
+        Headers headers = new Headers.Builder()
+                .add("source-name", "streamlining-inventory-management")
+                .build();
+        Request request = new Request.Builder()
                 .url(url)
-                .post(requestBody);
-
-        // Execute the request and handle the response
-        Request request = requestBuilder.build();
+                .headers(headers) // Add your custom headers
+                .post(requestBody) // Use POST method with request body
+                .build();
         client.newCall(request).enqueue(new Callback() {
-
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                status = false;
+                e.printStackTrace();
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    status = true;
+            public void onResponse(@NonNull Call call, @NonNull Response response){
+                try{
+                    if(response.isSuccessful()){
+                        startActivity(new Intent(SpecificCompanyActivity.this, CatalogActivity.class));
+                        return;
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
-
-    return status;
+        return false;
     }
 }

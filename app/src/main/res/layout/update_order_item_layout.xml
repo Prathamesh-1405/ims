@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- item_layout.xml -->
+<!-- row_item_layout.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,25 +6,23 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/itemNameTextView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Item Name"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:text="Item Name" />
 
     <TextView
-        android:id="@+id/total_quantity"
+        android:id="@+id/totalQtyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Qty: 0"
-        android:textSize="16sp" />
+        android:text="Total Qty" />
+
 
     <EditText
-        android:id="@+id/completed_quantity"
-        android:layout_width="100dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/completedQtyEditText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Completed Qty"
-        android:inputType="number"
-        android:textSize="16sp" />
+        android:hint="Completed Qty" />
 </LinearLayout>

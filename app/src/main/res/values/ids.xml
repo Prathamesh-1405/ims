@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="makeOrderBtn" type="id" />
+    <item name="totalQuantityTextView" type="id" />
+    <item name="itemNameTextView" type="id" />
+    <item name="completedQuantityEditText" type="id" />
+    <item name="finishButton" type="id" />
 </resources>

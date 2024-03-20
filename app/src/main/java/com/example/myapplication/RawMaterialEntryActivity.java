@@ -49,7 +49,7 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                 AutoCompleteTextView forField = findViewById(R.id.forFieldRm);
                 EditText cuttingSizeField = findViewById(R.id.cuttingSizeFieldRm);
                 EditText cuttingWeightField = findViewById(R.id.cuttingWeightFieldRm);
-                AutoCompleteTextView orderNoField = findViewById(R.id.orderNoFieldRm);
+                Spinner orderNoField = findViewById(R.id.orderNoFieldRm);
                 EditText orderSizeField = findViewById(R.id.orderSizeFieldRm);
 
                 // getting values through components
@@ -63,7 +63,7 @@ public class RawMaterialEntryActivity extends AppCompatActivity  {
                 String forFieldVal = forField.getText().toString();
                 String cuttingSize = cuttingSizeField.getText().toString();
                 String cuttingWeight = cuttingWeightField.getText().toString();
-                String orderNo = orderNoField.getText().toString();
+                String orderNo = orderNoField.getSelectedItem().toString();
                 String orderSize = orderSizeField.getText().toString();
 
                 try {

@@ -12,6 +12,8 @@
 
         <!-- Dynamic views for items -->
         <include layout="@layout/update_order_item_layout"/>
+        <include layout="@layout/update_order_item_layout"/>
+        <include layout="@layout/update_order_item_layout"/>
 
         <!-- Example for a single item -->
 

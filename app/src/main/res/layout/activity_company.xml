@@ -7,7 +7,6 @@
     android:background="#FFC6D9"
     android:onClick="onClickAddItem"
     tools:context=".CompanyActivity">
-
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
         android:textColor="#000000"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/textView17"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextMultiLine7"
+        app:layout_constraintEnd_toStartOf="@+id/orderNoField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -44,26 +43,26 @@
         android:textColor="#000000"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextMultiLine8"
+        app:layout_constraintEnd_toStartOf="@+id/rateField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine7"
+        android:id="@+id/orderNoField"
         android:layout_width="165dp"
         android:layout_height="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine8"
+        app:layout_constraintBottom_toTopOf="@+id/rateField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine8"
+        android:id="@+id/rateField"
         android:layout_width="165dp"
         android:layout_height="40dp"
         android:ems="10"
@@ -73,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine7" />
+        app:layout_constraintTop_toBottomOf="@+id/orderNoField" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -90,8 +89,20 @@
             android:layout_height="match_parent"
             android:background="#E8E8FA">
 
+            <ListView
+                android:id="@+id/itemList"
+                android:layout_width="376dp"
+                android:layout_height="413dp"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="visible"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="72dp"></ListView>
+
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/orderFinishBtn"
                 android:layout_width="148dp"
                 android:layout_height="49dp"
                 android:layout_marginBottom="44dp"
@@ -107,12 +118,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="44dp"
                 android:clickable="true"
-                android:onClick="onClickAddItem"
+                android:onClick="onClickAddItemBtn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.923"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@android:drawable/ic_input_add" />
+
+
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -126,6 +139,9 @@
                 app:srcCompat="@drawable/add_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +13,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ProcessActivity extends AppCompatActivity {
 
@@ -20,11 +36,12 @@ public class ProcessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process);
+
         findViewById(R.id.stage1TextView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setupStage1();
-                showPopup(R.layout.popup_stage1, R.id.finish_button1);
+//                showPopup(R.layout.popup_stage1, R.id.finish_button1);
             }
         });
 
@@ -32,7 +49,6 @@ public class ProcessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setupStage2();
-                showPopup(R.layout.popup_stage2, R.id.finish_button2);
             }
         });
 
@@ -40,7 +56,6 @@ public class ProcessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setupStage3();
-                showPopup(R.layout.popup_stage3, R.id.finish_button3);
             }
         });
 
@@ -48,7 +63,6 @@ public class ProcessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setupStage4();
-                showPopup(R.layout.popup_stage4, R.id.finish_button4);
             }
         });
 
@@ -56,122 +70,147 @@ public class ProcessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setupStage5();
-                showPopup(R.layout.popup_stage5, R.id.finish_button5);
             }
         });
     }
 
-//    public void onStageClick(View view) {
-//        int stageId = view.getId();
-//
-//        // Determine which stage was clicked
-//        switch (stageId) {
-//            case R.id.stage1TextView:
-//                setupStage1();
-//                showPopup(R.layout.popup_stage1, R.id.finish_button1);
-//                break;
-//            case R.id.stage2TextView:
-//                setupStage2();
-//                showPopup(R.layout.popup_stage2, R.id.finish_button2);
-//                break;
-//
-//            case R.id.stage3TextView:
-//                setupStage3();
-//                Button btn3 = findViewById(R.id.finish_button3);
-//                showPopup(R.layout.popup_stage3, R.id.finish_button3);
-//                break;
-//            case R.id.stage4TextView:
-//                setupStage4();
-//                showPopup(R.layout.popup_stage4, R.id.finish_button4);
-//                break;
-//            case R.id.stage5TextView:
-//                setupStage5();
-//                showPopup(R.layout.popup_stage5, R.id.finish_button5);
-//                break;
-//        }
-//    }
 
-    private void showPopup(int layoutId, int btnId) {
-        // Create a dialog to show the popup
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(layoutId);
-        Window window = dialog.getWindow();
-        if(window != null){
-            WindowManager.LayoutParams params = window.getAttributes();
-            params.width = WindowManager.LayoutParams.MATCH_PARENT;
-            params.height = WindowManager.LayoutParams.MATCH_PARENT;
-            window.setAttributes(params);
-        }
-        dialog.show();
-        // Find the finish button in the dialog layout
 
-//        View dialogView = LayoutInflater.from(this).inflate(R.layout.update_order_item_layout,null);
-//        Button finishBtn = findViewById(btnId);
-//
-//        finishBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
-
-    }
     private void setupStage1() {
-        // Assume you have retrieved item data from the database
-        // For demo, let's say we have an array of item names and total quantities
-        String[] itemNames = {"Item 1", "Item 2", "Item 3"};
-        int[] totalQuantities = {10, 20, 15};
 
-        LinearLayout container = findViewById(R.id.container_popup);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.popup_layout, null);
+        LinearLayout container = dialogView.findViewById(R.id.container_popup);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/item";
+        Request request = new Request.Builder().url(url).build();
 
-
-        // Dynamically add views for each item
-        for (int i = 0; i < itemNames.length; i++) {
-            View itemView = LayoutInflater.from(ProcessActivity.this).inflate(R.layout.update_order_item_layout, container, false);
-            TextView itemName = itemView.findViewById(R.id.item_name);
-            TextView totalQuantity = itemView.findViewById(R.id.total_quantity);
-            EditText completedQuantity = itemView.findViewById(R.id.completed_quantity);
-            itemName.setText(itemNames[i]);
-            totalQuantity.setText("Total Qty: " + totalQuantities[i]);
-            if(container == null){
-                Log.i("ProcessActivity", "container is null");
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
             }
-            if(container != null){
-                container.addView(itemView);
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try{
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        JSONObject jsonRes = new JSONObject(res);
+                        JSONArray items = (JSONArray) jsonRes.get("Items");
+                        int resArrLen = 0;
+                        Log.i("ProcessActivity", items.toString());
+                        for (int i = 0; i < items.length(); i++) {
+                            Log.i("ProcessActivity", items.getJSONObject(i).get("stage").toString());
+                            View rowView = inflater.inflate(R.layout.update_order_item_layout, null);
+                            TextView itemNameTextView = rowView.findViewById(R.id.itemNameTextView);
+                            TextView totalQtyTextView = rowView.findViewById(R.id.totalQtyTextView);
+                            EditText completedQtyEditText = rowView.findViewById(R.id.completedQtyEditText);
+                            if(items.getJSONObject(i).get("stage").toString().equals("1")){
+                                itemNameTextView.setText(items.getJSONObject(i).get("item_name").toString());
+                                totalQtyTextView.setText(items.getJSONObject(i).get("total_quantity").toString());
+                                container.addView(rowView);
+                                resArrLen++;
+                            }
+                        }
+                        if(resArrLen != 0){
+                            builder.setView(dialogView)
+                                    .setTitle("Stage 1")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // action to be performed
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .create()
+                                    .show();
+
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "No items present in stage 1", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-        }
+        });
+
+
+
     }
 
 
     //for stage 2
     private void setupStage2() {
-        // Assume you have retrieved item data from the database
-        // For demo, let's say we have an array of item names and total quantities
-        String[] itemNames = {"Item 1", "Item 2", "Item 3"};
-        int[] totalQuantities = {10, 20, 15};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.popup_layout, null);
+        LinearLayout container = dialogView.findViewById(R.id.container_popup);
 
-        LinearLayout container = findViewById(R.id.container2);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/item";
+        Request request = new Request.Builder().url(url).build();
 
-        // Dynamically add views for each item
-        runOnUiThread(new Runnable() {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void run() {
-                for (int i = 0; i < itemNames.length; i++) {
-                    View itemView = LayoutInflater.from(ProcessActivity.this).inflate(R.layout.update_order_item_layout, container, false);
-                    TextView itemName = itemView.findViewById(R.id.item_name);
-                    TextView totalQuantity = itemView.findViewById(R.id.total_quantity);
-                    EditText completedQuantity = itemView.findViewById(R.id.completed_quantity);
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-                    itemName.setText(itemNames[i]);
-                    totalQuantity.setText("Total Qty: " + totalQuantities[i]);
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try{
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        JSONObject jsonRes = new JSONObject(res);
+                        JSONArray items = (JSONArray) jsonRes.get("Items");
+                        int resArrLen = 0;
+                        Log.i("ProcessActivity", items.toString());
+                        for (int i = 0; i < items.length(); i++) {
+                            Log.i("ProcessActivity", items.getJSONObject(i).get("stage").toString());
+                            View rowView = inflater.inflate(R.layout.update_order_item_layout, null);
+                            TextView itemNameTextView = rowView.findViewById(R.id.itemNameTextView);
+                            TextView totalQtyTextView = rowView.findViewById(R.id.totalQtyTextView);
+                            EditText completedQtyEditText = rowView.findViewById(R.id.completedQtyEditText);
+                            if(items.getJSONObject(i).get("stage").toString().equals("2")){
+                                itemNameTextView.setText(items.getJSONObject(i).get("item_name").toString());
+                                totalQtyTextView.setText(items.getJSONObject(i).get("total_quantity").toString());
+                                container.addView(rowView);
+                                resArrLen++;
+                            }
 
-                    if(container != null){
-                        container.addView(itemView);
+                        }
+                        if(resArrLen != 0){
+                            builder.setView(dialogView)
+                                    .setTitle("Stage 2")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // action to be performed
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .create()
+                                    .show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "No items present in stage 2", Toast.LENGTH_LONG).show();
+                        }
                     }
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
-
 
 
     }
@@ -179,31 +218,72 @@ public class ProcessActivity extends AppCompatActivity {
     //for stage 3
 
     private void setupStage3() {
-        // Assume you have retrieved item data from the database
-        // For demo, let's say we have an array of item names and total quantities
-        String[] itemNames = {"Item 1", "Item 2", "Item 3"};
-        int[] totalQuantities = {10, 20, 15};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.popup_layout, null);
+        LinearLayout container = dialogView.findViewById(R.id.container_popup);
 
-        LinearLayout container = findViewById(R.id.container3);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/item";
+        Request request = new Request.Builder().url(url).build();
 
-        // Dynamically add views for each item
-        runOnUiThread(new Runnable() {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void run() {
-                for (int i = 0; i < itemNames.length; i++) {
-                    View itemView = LayoutInflater.from(ProcessActivity.this).inflate(R.layout.update_order_item_layout, container, false);
-                    TextView itemName = itemView.findViewById(R.id.item_name);
-                    TextView totalQuantity = itemView.findViewById(R.id.total_quantity);
-                    EditText completedQuantity = itemView.findViewById(R.id.completed_quantity);
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-                    itemName.setText(itemNames[i]);
-                    totalQuantity.setText("Total Qty: " + totalQuantities[i]);
-                    if(container != null){
-                        container.addView(itemView);
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try{
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        JSONObject jsonRes = new JSONObject(res);
+                        JSONArray items = (JSONArray) jsonRes.get("Items");
+                        int resArrLen = 0;
+                        Log.i("ProcessActivity", items.toString());
+                        for (int i = 0; i < items.length(); i++) {
+                            Log.i("ProcessActivity", items.getJSONObject(i).get("stage").toString());
+                            View rowView = inflater.inflate(R.layout.update_order_item_layout, null);
+                            TextView itemNameTextView = rowView.findViewById(R.id.itemNameTextView);
+                            TextView totalQtyTextView = rowView.findViewById(R.id.totalQtyTextView);
+                            EditText completedQtyEditText = rowView.findViewById(R.id.completedQtyEditText);
+                            if(items.getJSONObject(i).get("stage").toString().equals("3")){
+                                itemNameTextView.setText(items.getJSONObject(i).get("item_name").toString());
+                                totalQtyTextView.setText(items.getJSONObject(i).get("total_quantity").toString());
+                                container.addView(rowView);
+                                resArrLen++;
+                            }
+
+
+                        }
+                        if (resArrLen != 0){
+                            builder.setView(dialogView)
+                                    .setTitle("Stage 3")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // action to be performed
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .create()
+                                    .show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "No items present in stage 3", Toast.LENGTH_LONG).show();
+
+                        }
                     }
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
+
 
 
     }
@@ -211,31 +291,70 @@ public class ProcessActivity extends AppCompatActivity {
     //for stage 4
 
     private void setupStage4() {
-        // Assume you have retrieved item data from the database
-        // For demo, let's say we have an array of item names and total quantities
-        String[] itemNames = {"Item 1", "Item 2", "Item 3"};
-        int[] totalQuantities = {10, 20, 15};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.popup_layout, null);
+        LinearLayout container = dialogView.findViewById(R.id.container_popup);
 
-        LinearLayout container = findViewById(R.id.container4);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/item";
+        Request request = new Request.Builder().url(url).build();
 
-        // Dynamically add views for each item
-        runOnUiThread(new Runnable() {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void run() {
-                for (int i = 0; i < itemNames.length; i++) {
-                    View itemView = LayoutInflater.from(ProcessActivity.this).inflate(R.layout.update_order_item_layout, container, false);
-                    TextView itemName = itemView.findViewById(R.id.item_name);
-                    TextView totalQuantity = itemView.findViewById(R.id.total_quantity);
-                    EditText completedQuantity = itemView.findViewById(R.id.completed_quantity);
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-                    itemName.setText(itemNames[i]);
-                    totalQuantity.setText("Total Qty: " + totalQuantities[i]);
-                    if(container != null){
-                        container.addView(itemView);
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try{
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        JSONObject jsonRes = new JSONObject(res);
+                        JSONArray items = (JSONArray) jsonRes.get("Items");
+                        int resArrLen = 0;
+                        Log.i("ProcessActivity", items.toString());
+                        for (int i = 0; i < items.length(); i++) {
+                            Log.i("ProcessActivity", items.getJSONObject(i).get("stage").toString());
+                            View rowView = inflater.inflate(R.layout.update_order_item_layout, null);
+                            TextView itemNameTextView = rowView.findViewById(R.id.itemNameTextView);
+                            TextView totalQtyTextView = rowView.findViewById(R.id.totalQtyTextView);
+                            EditText completedQtyEditText = rowView.findViewById(R.id.completedQtyEditText);
+                            if(items.getJSONObject(i).get("stage").toString().equals("4")){
+                                itemNameTextView.setText(items.getJSONObject(i).get("item_name").toString());
+                                totalQtyTextView.setText(items.getJSONObject(i).get("total_quantity").toString());
+                                container.addView(rowView);
+                                resArrLen++;
+                            }
+
+                        }
+                        if(resArrLen != 0){
+                            builder.setView(dialogView)
+                                    .setTitle("Stage 4")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // action to be performed
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .create()
+                                    .show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "No items present in stage 4", Toast.LENGTH_LONG).show();
+                        }
                     }
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
+
 
 
     }
@@ -243,32 +362,70 @@ public class ProcessActivity extends AppCompatActivity {
     //for stage 5
 
     private void setupStage5() {
-        // Assume you have retrieved item data from the database
-        // For demo, let's say we have an array of item names and total quantities
-        String[] itemNames = {"Item 1", "Item 2", "Item 3"};
-        int[] totalQuantities = {10, 20, 15};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.popup_layout, null);
+        LinearLayout container = dialogView.findViewById(R.id.container_popup);
 
-        LinearLayout container = findViewById(R.id.container5);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ApiServiceDetails apiServiceDetails = null;
+        String url = apiServiceDetails.protocol + "://" + apiServiceDetails.host + ":" + apiServiceDetails.port + "/item";
+        Request request = new Request.Builder().url(url).build();
 
-        // Dynamically add views for each item
-        runOnUiThread(new Runnable() {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void run() {
-                for (int i = 0; i < itemNames.length; i++) {
-                    View itemView = LayoutInflater.from(ProcessActivity.this).inflate(R.layout.update_order_item_layout, container, false);
-                    TextView itemName = itemView.findViewById(R.id.item_name);
-                    TextView totalQuantity = itemView.findViewById(R.id.total_quantity);
-                    EditText completedQuantity = itemView.findViewById(R.id.completed_quantity);
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-                    itemName.setText(itemNames[i]);
-                    totalQuantity.setText("Total Qty: " + totalQuantities[i]);
-                    if(container != null){
-                        container.addView(itemView);
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try{
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        JSONObject jsonRes = new JSONObject(res);
+                        JSONArray items = (JSONArray) jsonRes.get("Items");
+                        int resArrLen = 0;
+                        Log.i("ProcessActivity", items.toString());
+                        for (int i = 0; i < items.length(); i++) {
+                            Log.i("ProcessActivity", items.getJSONObject(i).get("stage").toString());
+                            View rowView = inflater.inflate(R.layout.update_order_item_layout, null);
+                            TextView itemNameTextView = rowView.findViewById(R.id.itemNameTextView);
+                            TextView totalQtyTextView = rowView.findViewById(R.id.totalQtyTextView);
+                            EditText completedQtyEditText = rowView.findViewById(R.id.completedQtyEditText);
+                            if(items.getJSONObject(i).get("stage").toString().equals("1")){
+                                itemNameTextView.setText(items.getJSONObject(i).get("item_name").toString());
+                                totalQtyTextView.setText(items.getJSONObject(i).get("total_quantity").toString());
+                                container.addView(rowView);
+                                resArrLen++;
+                            }
+
+                        }
+                        if(resArrLen != 0){
+                            builder.setView(dialogView)
+                                    .setTitle("Stage 5")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // action to be performed
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null)
+                                    .create()
+                                    .show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "No items present in stage 5", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
 
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
+
 
 
     }
