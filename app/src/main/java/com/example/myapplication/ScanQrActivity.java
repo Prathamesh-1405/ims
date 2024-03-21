@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -93,13 +94,36 @@ public class ScanQrActivity extends AppCompatActivity implements ZXingScannerVie
         }
     }
 
+//    @Override
+//    public void handleResult(Result result) {
+//        String scannedInfo = result.getText();
+//        Intent intent = new Intent(this, ScannedInfoActivity.class);
+//        intent.putExtra("SCANNED_INFO", scannedInfo);
+//        startActivity(intent);
+//    }
+
     @Override
     public void handleResult(Result result) {
         String scannedInfo = result.getText();
-        Intent intent = new Intent(this, ScannedInfoActivity.class);
-        intent.putExtra("SCANNED_INFO", scannedInfo);
-        startActivity(intent);
+
+        // Check if the scanned info contains a link
+        if (isLink(scannedInfo)) {
+            // Open the link in the browser
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(scannedInfo));
+            startActivity(browserIntent);
+        } else {
+            // If not a link, proceed to ScannedInfoActivity
+            Intent intent = new Intent(this, ScannedInfoActivity.class);
+            intent.putExtra("SCANNED_INFO", scannedInfo);
+            startActivity(intent);
+        }
     }
+
+    private boolean isLink(String text) {
+        // A simple check to see if the text contains "http://" or "https://"
+        return text != null && (text.startsWith("http://") || text.startsWith("https://"));
+    }
+
 
 
     @Override

@@ -79,25 +79,26 @@
                 android:id="@+id/Purchase"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/lavender_blush"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="@color/lavender_blush">
+                android:onClick="onClickOrderDetails"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:onClick="onClickPurchase"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:onClick="onClickPurchase"
                     android:src="@drawable/purchasing" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="onClickPurchase"
                     android:layout_marginBottom="15dp"
-                    android:text="Purchase"
+                    android:onClick="onClickPurchase"
+                    android:text="Order Details"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

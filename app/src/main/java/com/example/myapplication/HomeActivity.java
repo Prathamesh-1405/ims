@@ -33,8 +33,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
-    public void onClickPurchase(View view) {
-        startActivity(new Intent(HomeActivity.this, CompanyActivity.class));
+    public void onClickOrderDetails(View view) {
+        startActivity(new Intent(HomeActivity.this, OrderDetailsActivity.class));
     }
 
     public void onClickRawMaterialEntry(View view) {

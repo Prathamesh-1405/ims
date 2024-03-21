@@ -63,7 +63,7 @@ public class AddNewCompanyActivity extends AppCompatActivity implements AdapterV
         addCompanyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText companyNameField = findViewById(R.id.companyNameField);
+                AutoCompleteTextView companyNameField = findViewById(R.id.companyNameField);
                 EditText addressField = findViewById(R.id.addressField);
                 EditText cityField = findViewById(R.id.cityField);
                 EditText pincodeField = findViewById(R.id.pinCodeField);
